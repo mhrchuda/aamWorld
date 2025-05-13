@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aam world</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.min.js"></script>
+</head>
+<body>
+    <h1>aam world</h1>
+    <script>
+        let aam;
+        let iWidth = 220;
+        let iHeight = 220;
+        let angle = 0;
+        let scaleFactor = 1;
+        let hueVal = 0;
+
+        function preload() {
+            aam = loadImage("sphere.jpg");
+        }
+
+        function setup() {
+            createCanvas(windowWidth,windowHeight);
+            imageMode(CENTER);
+            angleMode(DEGREES);
+            colorMode(HSB, 360, 100, 100, 100);
+            aam.resize(iWidth,iHeight);
+
+            describe("A photo of a small white and yellow budgie named Aam. He is looking very spherical.")
+        }    
+
+        function draw() {
+            if (width !== windowWidth || height !== windowHeight) {
+                resizeCanvas(windowWidth, windowHeight);
+            }
+            background(0,0);
+            translate(width / 2, height / 2);
+            angle += 1;
+            rotate(angle);
+
+            if (mouseIsPressed) {
+                scaleFactor += 0.01;
+                hueVal = (hueVal + 2) % 360;
+                tint(hueVal, 80, 100);
+
+            } else {
+                scaleFactor = 0; 
+                scaleFactor = max(scaleFactor, 1);
+                noTint();
+            }
+
+            // Draw the image with scaling
+            let currentWidth = iWidth * scaleFactor;
+            let currentHeight = iHeight * scaleFactor;
+
+            image(aam, 0, 0, currentWidth, currentHeight);
+            
+        }
+    </script>
+</body>
+</html>
